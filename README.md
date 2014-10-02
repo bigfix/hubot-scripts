@@ -1,0 +1,42 @@
+Setup
+-----
+
+To create the Hubot test environment install
+[vagrant](http://www.vagrantup.com/) and
+[VirtualBox](https://www.virtualbox.org/)
+then run:
+
+    $ vagrant up
+
+Once the vagrant box has finished installing everything, ssh into it with:
+
+    $ vagrant ssh
+
+Or if you're on Windows, you can use putty to ssh to `127.0.0.1:2222` with user
+`vagrant` and password `vagrant`.
+
+Once you've ssh'd into the vagrant box, you can run Hubot with:
+
+    $ cd hubot
+    $ bin/hubot
+
+You should then be able to run any Hubot command:
+
+    Hubot> hubot ping
+    Hubot> PONG
+
+Adding a new script
+-------------------
+
+First read the Hubot [documentation on creating scripts](https://github.com/github/hubot/blob/master/docs/scripting.md).
+
+To add a new script, create a new `.js` or `.coffee` file in the
+`scripts` directory. The script will get loaded when Hubot starts up.
+
+Deploying your script
+---------------------
+
+Once you've tested your script and you're ready to deploy it, commit it to
+github.
+
+To ask Hubot to sync itself with github, say `hubot sync` in the irc channel:

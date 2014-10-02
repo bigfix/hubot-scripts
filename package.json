@@ -1,0 +1,27 @@
+{
+  "name": "bigfix-hubot-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for the BigFix hubot",
+  "main": "scripts/index.coffee",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bigfix/hubot-scripts"
+  },
+  "keywords": [
+    "hubot"
+  ],
+  "bugs": {
+    "url": "https://github.com/bigfix/hubot-scripts/issues"
+  },
+  "homepage": "https://github.com/bigfix/hubot-scripts",
+  "dependencies": {
+    "cheerio": "^0.17.0",
+    "moment": "^2.8.3",
+    "pluralize": "^1.0.2",
+    "q": "^1.0.1",
+    "request": "^2.44.0",
+    "underscore": "^1.7.0",
+    "url": "^0.10.1",
+    "xml2js": "^0.4.4"
+  }
+}
