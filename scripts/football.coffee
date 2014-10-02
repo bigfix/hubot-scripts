@@ -33,3 +33,6 @@ module.exports = (robot) ->
 
   robot.respond /cheer for the packers/i, (msg) ->
     msg.send "Go Pack go! Go Pack go!"
+
+  robot.respond /cheer for the patriots/i, (msg) ->
+    msg.send "Don't throw an interception!"
