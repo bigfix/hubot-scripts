@@ -2,7 +2,7 @@
   "name": "bigfix-hubot-scripts",
   "version": "1.0.0",
   "description": "Scripts for the BigFix hubot",
-  "main": "scripts/index.coffee",
+  "main": "index.coffee",
   "repository": {
     "type": "git",
     "url": "https://github.com/bigfix/hubot-scripts"
