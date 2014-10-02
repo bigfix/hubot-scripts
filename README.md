@@ -49,4 +49,4 @@ Deploying your script
 Once you've tested your script and you're ready to deploy it, commit it to
 github.
 
-To ask Hubot to sync itself with github, say `hubot sync` in the irc channel:
+To ask Hubot to sync itself with github, say `hubot sync` in the irc channel.
