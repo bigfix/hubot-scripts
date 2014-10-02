@@ -3,8 +3,7 @@ Setup
 
 To create the Hubot test environment, you'll need
 [vagrant](http://www.vagrantup.com/) and
-[VirtualBox](https://www.virtualbox.org/)
-then run.
+[VirtualBox](https://www.virtualbox.org/).
 
 First, clone this repo:
 
