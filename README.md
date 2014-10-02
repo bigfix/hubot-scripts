@@ -1,10 +1,21 @@
 Setup
 -----
 
-To create the Hubot test environment install
+To create the Hubot test environment, you'll need
 [vagrant](http://www.vagrantup.com/) and
 [VirtualBox](https://www.virtualbox.org/)
-then run:
+then run.
+
+First, clone this repo:
+
+    $ git clone git@github.com:bigfix/hubot-scripts.git
+    $ cd hubot-scripts
+    
+Then install all the node modules we use:
+
+    $ npm install
+    
+Next, start the virtual machine for hubot:
 
     $ vagrant up
 
