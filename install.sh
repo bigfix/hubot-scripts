@@ -2,6 +2,8 @@
 
 set -e
 
+apt-get update
+
 # Install nodesource prerequisite
 apt-get install -y curl
 
