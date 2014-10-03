@@ -25,7 +25,7 @@ module.exports = (robot) ->
           msg.send "'#{cmd}' failed"
           return
 
-        done(stdout);
+        done(stdout)
 
     pull = ->
       msg.send 'Pulling from github'
