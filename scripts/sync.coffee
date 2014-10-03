@@ -36,7 +36,7 @@ module.exports = (robot) ->
           msg.send 'npm install failed'
           return
 
-        msg.send 'Sync successful, I regret nothing!'
+        msg.send 'Sync successful. I regret nothing!'
         setTimeout die, 1000
     
     die = ->
