@@ -18,25 +18,26 @@ options =
 module.exports = (robot) ->
   robot.respond /sync/i, (msg) ->
 
-    pull = ->
-      msg.send 'Pulling from github'
-      Child.exec 'git pull origin master', options, (err) ->
+    run = (cmd, done) ->
+      Child.exec cmd, options, (err, stdout) ->
         if err
           msg.send err.message.trim()
-          msg.send 'git pull failed'
+          msg.send "'#{cmd}' failed"
           return
 
-        install()
+        done(stdout);
+
+    pull = ->
+      msg.send 'Pulling from github'
+      run 'git pull origin master', install
     
     install = ->
       msg.send 'Running npm install'
-      Child.exec 'npm install', options, (err) ->
-        if err
-          msg.send err.message.trim()
-          msg.send 'npm install failed'
-          return
+      run 'npm install', show
 
-        msg.send 'Sync successful. I regret nothing!'
+    show = ->
+      run 'git rev-parse --short HEAD', (stdout) ->
+        msg.send "Successfully synced #{stdout.trim()}. I regret nothing!"
         setTimeout die, 1000
     
     die = ->
