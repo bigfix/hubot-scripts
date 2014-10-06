@@ -13,8 +13,6 @@
 # Author:
 #   greenb
 
-moment = require 'moment'
-
 module.exports = (robot) ->
   robot.hear /^(hi|hello),?\s+hubot$/i, (msg) ->
-    msg.send "Hello, #{msg.envelope.user.name}";
+    msg.send "Hello, #{msg.envelope.user.name}.";

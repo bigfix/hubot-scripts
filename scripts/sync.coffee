@@ -38,7 +38,7 @@ module.exports = (robot) ->
     show = ->
       run 'git rev-parse --short HEAD', (stdout) ->
         msg.send "Successfully synced #{stdout.trim()}. I regret nothing!"
-        setTimeout die, 1000
+        setTimeout die, 2000
     
     die = ->
       process.exit 0
