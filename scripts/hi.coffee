@@ -19,3 +19,6 @@ module.exports = (robot) ->
 
   robot.hear /^(goodnight|night),?\s+hubot$/i, (msg) ->
     msg.send "Goodnight, #{msg.envelope.user.name}.";
+
+  robot.hear /^(good\s*morning|morning),?\s+hubot$/i, (msg) ->
+    msg.send "Good morning, #{msg.envelope.user.name}.";
