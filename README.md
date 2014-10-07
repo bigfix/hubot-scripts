@@ -3,9 +3,9 @@ Secrets
 
 *Do not put any secret information in any scripts!*
 
-If you need to use a password, an API key, or any other secret in your
-script, make it an environment variable referenced by the script instead. Do
-not write the secret into the script!
+If you need to use a password, an API key, or any other secret in your script,
+make it an environment variable referenced by the script. Do not write the
+secret into the script!
 
 When you want to deploy a script with a secret, ask Mike Ottum or Brian Green
 to add the environment variable to the production hubot instance.
