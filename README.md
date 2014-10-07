@@ -9,11 +9,11 @@ First, clone this repo:
 
     $ git clone git@github.com:bigfix/hubot-scripts.git
     $ cd hubot-scripts
-    
+
 Then install all the node modules we use:
 
     $ npm install
-    
+
 Next, start the virtual machine for hubot:
 
     $ vagrant up
