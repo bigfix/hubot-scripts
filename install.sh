@@ -12,7 +12,7 @@ curl -sL https://deb.nodesource.com/setup | bash -
 apt-get install -y nodejs redis-server
 
 # Install hubot
-npm install -g hubot coffee-script
+npm install -g hubot@2.8.3 coffee-script
 cd /home/vagrant
 hubot --create hubot
 cd hubot
