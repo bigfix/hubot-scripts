@@ -19,7 +19,6 @@ request = require 'request'
 getLikes = (user) ->
   options = {
     url: "https://forum.bigfix.com/users/#{user}.json"
-    strictSSL: false,
   }
 
   returnLikes = (res, body) ->
