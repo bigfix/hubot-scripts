@@ -22,6 +22,11 @@ getLikes = (user) ->
   }
 
   returnLikes = (res, body) ->
+    if(res.statusCode == 404)
+      throw new Error("User '#{user}' not found")
+    else if(res.statusCode != 200)
+      throw new Error("HTTP #{res.statusCode}")
+
     for stat in JSON.parse(body).user.stats
       if stat.action_type == 2
         return {name: user, count: stat.count}
