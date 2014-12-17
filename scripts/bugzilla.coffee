@@ -43,5 +43,5 @@ module.exports = (robot) ->
         $ = Cheerio.load body
         title = $('title').text()
 
-        msg.send title
-        msg.send domain + makePath(bug) unless title == 'Invalid Bug ID'
+        if title != 'Invalid Bug ID'
+          msg.send "#{title} #{domain}#{makePath(bug)}"
