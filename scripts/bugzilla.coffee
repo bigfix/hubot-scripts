@@ -26,10 +26,7 @@ module.exports = (robot) ->
     bug = msg.match[1]
 
     params =
-      Bugzilla_login: process.env.BUGZILLA_USER
-      Bugzilla_password: process.env.BUGZILLA_PASS
       id: bug
-      GoAheadAndLogIn: 'Log in'
 
     msg.http(domain)
       .path(makePath(bug))
