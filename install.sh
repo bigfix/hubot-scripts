@@ -3,8 +3,6 @@
 set -e
 set -x
 
-apt-get -qq update > /dev/null
-
 # Install nodesource prerequisite
 apt-get -qq install curl > /dev/null
 
