@@ -22,7 +22,7 @@ module.exports = (robot) ->
   makePath = (bug) ->
     '/bugzilla/show_bug.cgi?id=' + bug
 
-  robot.hear /hubot bug #?(\d+)/i, (msg) ->
+  robot.hear /bug #?(\d+)/i, (msg) ->
     bug = msg.match[1]
 
     params =
