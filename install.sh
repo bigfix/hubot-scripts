@@ -4,18 +4,18 @@ set -e
 set -x
 
 # Install nodesource prerequisite
-apt-get -qq install curl > /dev/null
+apt-get -qq install curl
 
 # Install hubot prerequisites
 curl -sL https://deb.nodesource.com/setup | bash - > /dev/null
-apt-get -qq install nodejs redis-server > /dev/null
+apt-get -qq install nodejs redis-server
 
 # Install hubot
-npm install --silent -g hubot@2.8.3 coffee-script > /dev/null
+npm install --silent -g hubot@2.8.3 coffee-script
 cd /home/vagrant
 hubot --create hubot
 cd hubot
-npm install --silent > /dev/null
+npm install --silent
 
 # Set default scripts
 echo '["redis-brain.coffee", "shipit.coffee"]' \
