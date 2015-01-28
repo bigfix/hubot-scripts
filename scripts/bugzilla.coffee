@@ -22,6 +22,28 @@ module.exports = (robot) ->
   makePath = (bug) ->
     '/bugzilla/show_bug.cgi?id=' + bug
 
+  fetchBug = (msg, bug) ->
+    params =
+      id: bug
+
+    msg.http(domain)
+      .path(makePath(bug))
+      .header('Content-Type', 'application/x-www-form-urlencoded')
+      .post(QS.stringify(params)) (err, res, body) ->
+        if err
+          msg.send 'Failed to query bug status. ' + err
+          return
+
+        if res.statusCode != 200
+          msg.send 'Failed to query bug status. Got status ' + res.statusCode
+          return
+
+        $ = Cheerio.load body
+        title = $('title').text()
+
+        if title != 'Invalid Bug ID'
+          msg.send "#{title} #{domain}#{makePath(bug)}"
+
   robot.hear /bug #?(\d+)/ig, (msg) ->
     notUniq = {}
     for b in msg.match
@@ -30,23 +52,4 @@ module.exports = (robot) ->
         continue
       notUniq[bug] = true
 
-      params =
-        id: bug
-
-      msg.http(domain)
-        .path(makePath(bug))
-        .header('Content-Type', 'application/x-www-form-urlencoded')
-        .post(QS.stringify(params)) (err, res, body) ->
-          if err
-            msg.send 'Failed to query bug status. ' + err
-            return
-
-          if res.statusCode != 200
-            msg.send 'Failed to query bug status. Got status ' + res.statusCode
-            return
-
-          $ = Cheerio.load body
-          title = $('title').text()
-
-          if title != 'Invalid Bug ID'
-            msg.send "#{title} #{domain}#{makePath(bug)}"
+      fetchBug msg, bug
