@@ -24,4 +24,4 @@ module.exports.getTitle = (bug) ->
         defer.reject 'Invalid bug ID.'
   return defer.promise
 
-module.exports._checkRegex = _checkRegex = /bug #?(\d+)/ig
+module.exports.checkRegex = checkRegex = /bug #?(\d+)/ig

@@ -1,5 +1,5 @@
 # Description:
-#   In which Hubot gives you bugzilla information
+#   Hubot tells you bugs information from bugzilla
 #
 # Dependencies:
 #   None
@@ -15,6 +15,7 @@
 
 bugs = require './lib/bugs'
 
+# [123] = distinctBugs ['bug #123', 'bug 123']
 distinctBugs = (candidates) ->
   distinct = []
   notDistinct = {}
@@ -28,7 +29,7 @@ distinctBugs = (candidates) ->
   return distinct
 
 module.exports = (robot) ->
-  robot.hear bugs._checkRegex, (msg) ->
+  robot.hear bugs.checkRegex, (msg) ->
     for bug in distinctBugs msg.match
       bugs.getTitle(bug)
         .then(
