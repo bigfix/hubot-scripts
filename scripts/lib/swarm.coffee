@@ -25,12 +25,14 @@ module.exports.isValid = (link) ->
 module.exports.getBug = (change) ->
   defer = Q.defer()
   request.get getReviewAPILink(change), (err, res, body) ->
+    bug = 0
     if res.statusCode == 200
       parsed = JSON.parse(body)
       description = parsed.review.description
       candidates = description.match bugs.checkRegex
-      bug = candidates[0].substr candidates[0].search /\d/
-      defer.resolve bug
+      if candidates
+        bug = candidates[0].substr candidates[0].search /\d/
+    defer.resolve bug
   return defer.promise
 
 module.exports.checkRegex = checkRegex = /(changelist|change|review) #?(\d+)/ig

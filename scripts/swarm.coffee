@@ -59,9 +59,10 @@ module.exports = (robot) ->
           (valid, bug) ->
             if valid
               msg.send link
-              bugs.getTitle(bug).then(
-                (title) -> msg.send "#{title} #{bugs.getLink bug}"
-              )
+              if bug != 0
+                bugs.getTitle(bug).then(
+                  (title) -> msg.send "#{title} #{bugs.getLink bug}"
+                )
           (err) -> msg.send err
         )
         .done()
