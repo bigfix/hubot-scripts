@@ -28,11 +28,14 @@ distinctBugs = (candidates) ->
       distinct.push bug
   return distinct
 
+fetchBug = (msg, bug) ->
+  bugs.getTitle(bug)
+    .then(
+      (title) -> msg.send "#{title} #{bugs.getLink bug}"
+      (err) -> msg.send err
+    )
+
 module.exports = (robot) ->
   robot.hear bugs.checkRegex, (msg) ->
     for bug in distinctBugs msg.match
-      bugs.getTitle(bug)
-        .then(
-          (title) -> msg.send "#{title} #{bugs.getLink bug}"
-          (err) -> msg.send err
-        )
+      fetchBug msg, bug

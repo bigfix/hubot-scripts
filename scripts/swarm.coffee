@@ -43,26 +43,32 @@ distinctRequest = (msg, candidates) ->
         distinct.reviews.push id
   return distinct
 
+fetchChange = (msg, change) ->
+  swarm.isValid(swarm.getChangeLink change)
+    .then(
+      (valid) -> msg.send swarm.getChangeLink(change)
+      (err) -> msg.send err
+  )
+
+fetchBugIfValid = (msg, review) ->
+  link = swarm.getReviewLink review
+  Q.all([swarm.isValid(link), swarm.getBug(review)])
+    .spread(
+      (valid, bug) ->
+        if valid
+          msg.send link
+          if bug != 0
+            bugs.getTitle(bug).then(
+              (title) -> msg.send "#{title} #{bugs.getLink bug}"
+            )
+      (err) -> msg.send err
+    )
+    .done()
+
 module.exports = (robot) ->
   robot.hear /(changelist|change|review) #?(\d+)/ig, (msg) ->
     requests = distinctRequest msg, msg.match
     for change in requests.changes
-      swarm.isValid(swarm.getChangeLink change)
-        .then(
-          (valid) -> msg.send swarm.getChangeLink(change)
-          (err) -> msg.send err
-      )
+      fetchChange msg, change
     for review in requests.reviews
-      link = swarm.getReviewLink review
-      Q.all([swarm.isValid(link), swarm.getBug(review)])
-        .spread(
-          (valid, bug) ->
-            if valid
-              msg.send link
-              if bug != 0
-                bugs.getTitle(bug).then(
-                  (title) -> msg.send "#{title} #{bugs.getLink bug}"
-                )
-          (err) -> msg.send err
-        )
-        .done()
+      fetchBugIfValid msg, review
