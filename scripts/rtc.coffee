@@ -32,10 +32,12 @@ distinctBugs = (candidates) ->
   return distinct
 
 fetchSummary = (msg, number) ->
+  url = repo + 'resource/itemName/com.ibm.team.workitem.WorkItem/' + number
+
   getWorkItem(number, user, pass, repo)
     .then(
       (summary) ->
-        msg.send summary
+        msg.send "#{summary} #{url}"
       (err) ->
         msg.send err
     )
