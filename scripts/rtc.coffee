@@ -40,7 +40,7 @@ fetchSummary = (msg, number) ->
         msg.send err
     )
 
-# module.exports = (robot) ->
-#   robot.hear /rtc #?(\d+)/ig, (msg) ->
-#     for bug in distinctBugs msg.match
-#       fetchSummary msg, bug
+module.exports = (robot) ->
+  robot.hear /rtc #?(\d+)/ig, (msg) ->
+    for bug in distinctBugs msg.match
+      fetchSummary msg, bug
