@@ -14,7 +14,7 @@ Q = require('q')
 module.exports = {
   create : (language, contents) ->
     deferred = Q.defer()
-    url = 'http://gist.sfolab.ibm.com'
+    url = 'https://gist.sfolab.ibm.com'
     options = {
       uri    : url + '/create',
       method : 'POST',

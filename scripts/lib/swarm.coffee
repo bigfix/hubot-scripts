@@ -2,7 +2,7 @@ request = require 'request'
 Q = require 'q'
 bugs = require './bugs'
 
-module.exports.domain = domain = 'http://swarm.sfolab.ibm.com'
+module.exports.domain = domain = 'https://swarm.sfolab.ibm.com'
 
 module.exports.getChangeLink = getChangeLink = (change) -> "#{domain}/changes/#{change}"
 module.exports.getReviewLink = getReviewLink = (change) -> "#{domain}/reviews/#{change}"
