@@ -9,7 +9,17 @@ module.exports.getLink = getLink = (bug) -> "#{domain}/bugzilla/show_bug.cgi?id=
 module.exports.getTitle = (bug) ->
   defer = Q.defer()
   link = getLink bug
-  request.post {url: link, form: {id: bug}}, (err, res, body) ->
+  
+  options = {
+    url: link,
+    form: {
+      id: bug,
+      Bugzilla_login: process.env.BUGZILLA_USER,
+      Bugzilla_password: process.env.BUGZILLA_PASS
+    }
+  }
+  
+  request.post options, (err, res, body) ->
     if err
       defer.reject "Failed to query bug status. #{err}"
     else if res.statusCode != 200

@@ -10,7 +10,16 @@ module.exports.getReviewAPILink = getReviewAPILink = (change) -> "#{domain}/api/
 
 module.exports.isValid = (link) ->
   defer = Q.defer()
-  request.get link, (err, res, body) ->
+  
+  options = {
+    url: link,
+    auth: {
+      user: process.env.SWARM_USER,
+      pass: process.env.SWARM_PASS
+    }
+  }
+
+  request.get options, (err, res, body) ->
     if err
       defer.reject "Failed to query changelist information. #{err}"
     else if res.statusCode == 404
@@ -24,7 +33,16 @@ module.exports.isValid = (link) ->
 # only works for reviews
 module.exports.getBug = (change) ->
   defer = Q.defer()
-  request.get getReviewAPILink(change), (err, res, body) ->
+
+  options = {
+    url: getReviewAPILink(change),
+    auth: {
+      user: process.env.SWARM_USER,
+      pass: process.env.SWARM_PASS
+    }
+  }
+  
+  request.get options, (err, res, body) ->
     bug = 0
     if res.statusCode == 200
       parsed = JSON.parse(body)
