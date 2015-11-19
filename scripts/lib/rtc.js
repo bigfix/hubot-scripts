@@ -3,10 +3,34 @@ var Entities = require('html-entities').AllHtmlEntities,
   request = require('request');
 
 var entities = new Entities();
+var sessionCookies;
 
-function login(user, pass, repo) {
+function getIdentity(repo, cookieJar) {
   var deferred = Q.defer();
-  var cookieJar = request.jar();
+
+  var options = {
+    url: repo + 'authenticated/identity',
+    jar: cookieJar,
+    strictSSL: false
+  };
+
+  request.get(options, function(err, res) {
+    if (err) {
+      return deferred.reject(err);
+    }
+
+    if (res.statusCode !== 200) {
+      return deferred.reject(new Error('bad status: ' + res.statusCode));
+    }
+
+    return deferred.resolve();
+  });
+
+  return deferred.promise;
+}
+
+function postLogin(user, pass, repo, cookieJar) {
+  var deferred = Q.defer();
 
   var options = {
     url: repo + 'auth/j_security_check',
@@ -31,6 +55,33 @@ function login(user, pass, repo) {
   });
 
   return deferred.promise;
+}
+
+function createSession(user, pass, repo) {
+  var cookieJar = request.jar();
+
+  return getIdentity(repo, cookieJar)
+    .then(function() {
+      return postLogin(user, pass, repo, cookieJar);
+    })
+    .then(function() {
+      return getIdentity(repo, cookieJar);
+    })
+    .then(function() {
+      return cookieJar;
+    });
+}
+
+function getSession(user, pass, repo) {
+  if (sessionCookies) {
+    return Q(sessionCookies);
+  }
+
+  return createSession(user, pass, repo)
+    .then(function(cookieJar) {
+      sessionCookies = cookieJar;
+      return sessionCookies;
+    });
 }
 
 function getWorkItem(id, cookieJar, repo) {
@@ -105,9 +156,16 @@ function getSummary(id, result) {
 }
 
 module.exports = function(id, user, pass, repo) {
-  return login(user, pass, repo)
+  return getSession(user, pass, repo)
     .then(function(cookieJar) {
       return getWorkItem(id, cookieJar, repo);
+    })
+    .fail(function(err) {
+      sessionCookies = undefined;
+      return getSession(user, pass, repo)
+        .then(function(cookieJar) {
+          return getWorkItem(id, cookieJar, repo);
+        });
     })
     .then(function(result) {
       return getSummary(id, result);
