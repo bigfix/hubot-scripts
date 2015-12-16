@@ -8,9 +8,9 @@
 #   None
 #
 # Commands:
-#   hubot changelist <number> - Shows change information
-#   hubot change <number> - Shows change information
-#   hubot review <number> - Shows the review information and bug information (if it exists)
+#   hubot changelist <P4 changelist number> - Shows change information
+#   hubot change <P4 changelist number> - Shows change information
+#   hubot review <swarm changelist number> - Shows the Swarm review information and bug information (if it exists)
 #
 # Author:
 #   dhwang
